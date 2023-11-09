@@ -1,0 +1,23 @@
+x-network: &NETWORK
+    BECH32_PREFIX: nyml
+    DENOM: nyml
+    STAKE_DENOM: nyxl
+    CHAIN_ID: nym-localnet
+
+services:
+    nym_validator:
+        build:
+            context: validator
+            args: *NETWORK
+        ports:
+            - "26657:26657"
+            - "1317:1317"
+        container_name: nym_validator
+        volumes:
+            - "nym_validator:/nym_validator"
+            - "nyxd:/root/.nyxd"
+        environment: *NETWORK
+
+volumes:
+    nym_validator:
+    nyxd:
